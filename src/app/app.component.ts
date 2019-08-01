@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { CodePush } from '@ionic-native/code-push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,24 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'List',
+      url: '/list',
+      icon: 'phone'
+    },
+    {
+      title: 'List',
+      url: '/list',
+      icon: 'home'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private codePush: CodePush
   ) {
     this.initializeApp();
   }
@@ -35,6 +47,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
+      const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
+      this.codePush.sync({}, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
     });
   }
 }
