@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { CodePush } from '@ionic-native/code-push/ngx';
+import { CodePush, InstallMode } from '@ionic-native/code-push/ngx';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +25,7 @@ export class AppComponent {
     {
       title: 'List',
       url: '/list',
-      icon: 'phone'
+      icon: 'build'
     },
     {
       title: 'List',
@@ -49,7 +49,9 @@ export class AppComponent {
       this.splashScreen.hide();
       this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
       const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
-      this.codePush.sync({}, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
+      this.codePush.sync({
+        installMode: InstallMode.ON_NEXT_RESTART
+      }, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
     });
   }
 }
