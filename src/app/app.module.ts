@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CodePush } from '@ionic-native/code-push/ngx';
+import { AppCenterCrashes } from '@ionic-native/app-center-crashes/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { CodePush } from '@ionic-native/code-push/ngx';
     StatusBar,
     SplashScreen,
     CodePush,
+    AppCenterCrashes,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

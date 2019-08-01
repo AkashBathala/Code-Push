@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { CodePush, InstallMode } from '@ionic-native/code-push/ngx';
+// import { AppCenterCrashes } from '@ionic-native/app-center-crashes/ngx'
 
 @Component({
   selector: 'app-root',
@@ -38,7 +39,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private codePush: CodePush
+    private codePush: CodePush,
+    // private AppCenterCrashes: AppCenterCrashes
   ) {
     this.initializeApp();
   }
@@ -47,11 +49,18 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
+      // this.codePush.sync().subscribe((syncStatus) => console.log(syncStatus));
       const downloadProgress = (progress) => { console.log(`Downloaded ${progress.receivedBytes} of ${progress.totalBytes}`); }
       this.codePush.sync({
-        installMode: InstallMode.ON_NEXT_RESTART
+        installMode: InstallMode.IMMEDIATE
       }, downloadProgress).subscribe((syncStatus) => console.log(syncStatus));
+
+
+      // this.AppCenterCrashes.setEnabled(true).then(() => {
+      //   this.AppCenterCrashes.lastSessionCrashReport().then(report => {
+      //     console.log('Crash report', report);
+      //   });
+      // });
     });
   }
 }
